@@ -43,3 +43,4 @@ env/PartsUnlimited.Environment/PartsUnlimited.Environment/Tools
 /testresults.xml
 /backup
 UpgradeLog.htm
+/ignore/
