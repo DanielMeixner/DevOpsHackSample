@@ -467,10 +467,10 @@
         "[resourceId('Microsoft.Sql/servers', variables('PartsUnlimitedServerName'))]",
         "[resourceId('Microsoft.Sql/servers', variables('PartsUnlimitedServerNameDev'))]",
         "[resourceId('Microsoft.Sql/servers', variables('PartsUnlimitedServerNameStage'))]",
-        "[resourceId('Microsoft.Sql/servers', variables('PartsUnlimitedServerNameTest'))]",        
-
+        "[resourceId('Microsoft.Sql/servers', variables('PartsUnlimitedServerNameTest'))]",
         "[resourceId('Microsoft.Insights/components', concat(parameters('WebsiteName'), '-Insights'))]",
         "[resourceId('Microsoft.Insights/components', concat(parameters('WebSiteName'), '-DevInsights'))]",
+        "[resourceId('Microsoft.Insights/components', concat(parameters('WebsiteName'), '-TestInsights'))]",
         "[resourceId('Microsoft.Insights/components', concat(parameters('WebSiteName'), '-StagingInsights'))]"
       ],
       "location": "[resourceGroup().location]",
