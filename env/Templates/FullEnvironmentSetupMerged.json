@@ -224,6 +224,55 @@
         }
       ]
     },
+
+    {
+      "name": "[variables('PartsUnlimitedServerNameTest')]",
+      "type": "Microsoft.Sql/servers",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2014-04-01-preview",
+      "dependsOn": [],
+      "tags": {
+        "displayName": "PartsUnlimitedServer"
+      },
+      "properties": {
+        "administratorLogin": "[parameters('PartsUnlimitedServerAdminLogin')]",
+        "administratorLoginPassword": "[parameters('PartsUnlimitedServerAdminLoginPasswordForTest')]"
+      },
+      "resources": [
+        {
+          "name": "[concat('AllowAllIps', variables('PartsUnlimitedServerNameTest'))]",
+          "type": "firewallrules",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2014-04-01-preview",
+          "dependsOn": [
+            "[resourceId('Microsoft.Sql/servers', variables('PartsUnlimitedServerNameTest'))]"
+          ],
+          "properties": {
+            "startIpAddress": "0.0.0.0",
+            "endIpAddress": "0.0.0.0"
+          }
+        },
+        {
+          "name": "[parameters('PartsUnlimitedDBName')]",
+          "type": "databases",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2014-04-01-preview",
+          "dependsOn": [
+            "[resourceId('Microsoft.Sql/servers', variables('PartsUnlimitedServerNameTest'))]"
+          ],
+          "tags": {
+            "displayName": "PartsUnlimitedDB"
+          },
+          "properties": {
+            "collation": "[parameters('PartsUnlimitedDBCollation')]",
+            "edition": "[parameters('PartsUnlimitedDBEdition')]",
+            "maxSizeBytes": "1073741824"
+          }
+        }
+      ]
+    },
+
+
     {
       "name": "[concat(parameters('WebsiteName'), '-Insights')]",
       "type": "Microsoft.Insights/components",
@@ -418,6 +467,8 @@
         "[resourceId('Microsoft.Sql/servers', variables('PartsUnlimitedServerName'))]",
         "[resourceId('Microsoft.Sql/servers', variables('PartsUnlimitedServerNameDev'))]",
         "[resourceId('Microsoft.Sql/servers', variables('PartsUnlimitedServerNameStage'))]",
+        "[resourceId('Microsoft.Sql/servers', variables('PartsUnlimitedServerNameTest'))]",        
+
         "[resourceId('Microsoft.Insights/components', concat(parameters('WebsiteName'), '-Insights'))]",
         "[resourceId('Microsoft.Insights/components', concat(parameters('WebSiteName'), '-DevInsights'))]",
         "[resourceId('Microsoft.Insights/components', concat(parameters('WebSiteName'), '-StagingInsights'))]"
@@ -593,7 +644,7 @@
             }
           ]
         }
-   
+
 
 
 
@@ -602,7 +653,7 @@
       ]
     },
 
- 
+
 
 
     {
