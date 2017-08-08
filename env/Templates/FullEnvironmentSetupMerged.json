@@ -310,6 +310,18 @@
       }
     },
     {
+      "name": "[concat(parameters('WebsiteName'), '-TestInsights')]",
+      "type": "Microsoft.Insights/components",
+      "location": "East US",
+      "apiVersion": "2014-04-01",
+      "tags": {
+        "displayName": "insightsComponents"
+      },
+      "properties": {
+        "ApplicationId": "[concat(parameters('WebsiteName'), '-TestInsights')]"
+      }
+    },
+    {
       "name": "[parameters('PartsUnlimitedHostingPlanName')]",
       "type": "Microsoft.Web/serverfarms",
       "location": "[resourceGroup().location]",
