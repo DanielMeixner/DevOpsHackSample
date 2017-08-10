@@ -306,13 +306,11 @@
       "location": "East US",
       "apiVersion": "2014-04-01",
       "tags": {
-        "displayName": "insightsComponents"
+        "displayName": "insightsComponents",
+        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('WebsiteName'),'-Staging'  )]": "Resource"
       },
       "properties": {
-        "ApplicationId": "[concat(parameters('WebsiteName'), '-StagingInsights')]",
-        "tags": {
-          "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('WebsiteName'),'-Staging'  )]": "Resource"
-        }
+        "ApplicationId": "[concat(parameters('WebsiteName'), '-StagingInsights')]"       
       }
     },
     {
@@ -321,13 +319,12 @@
       "location": "East US",
       "apiVersion": "2014-04-01",
       "tags": {
-        "displayName": "insightsComponents"
+        "displayName": "insightsComponents",
+        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('WebsiteName'),'-Test'  )]": "Resource"
       },
       "properties": {
-        "ApplicationId": "[concat(parameters('WebsiteName'), '-TestInsights')]",
-        "tags": {
-          "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('WebsiteName'),'-Test'  )]": "Resource"
-        }
+        "ApplicationId": "[concat(parameters('WebsiteName'), '-TestInsights')]"
+       
 
       }
     },
