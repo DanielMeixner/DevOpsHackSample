@@ -279,7 +279,8 @@
       "location": "East US",
       "apiVersion": "2014-04-01",
       "tags": {
-        "displayName": "insightsComponents"
+        "displayName": "insightsComponents",
+        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('WebsiteName')  )]": "Resource"
       },
       "properties": {
         "ApplicationId": "[concat(parameters('WebsiteName'), '-Insights')]"
@@ -291,13 +292,12 @@
       "location": "East US",
       "apiVersion": "2014-04-01",
       "tags": {
-        "displayName": "insightsComponents"
+        "displayName": "insightsComponents",
+        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('WebsiteName'),'/slots/Dev'  )]": "Resource"
       },
       "properties": {
-        "ApplicationId": "[concat(parameters('WebsiteName'), '-DevInsights')]",
-        "tags": {
-          "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('WebsiteName'),'/slots/Dev'  )]": "Resource"
-        }
+        "ApplicationId": "[concat(parameters('WebsiteName'), '-DevInsights')]"
+        
       }
     },
     {
