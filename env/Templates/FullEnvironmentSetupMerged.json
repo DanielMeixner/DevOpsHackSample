@@ -296,7 +296,7 @@
       "properties": {
         "ApplicationId": "[concat(parameters('WebsiteName'), '-DevInsights')]",
         "tags": {
-          "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('WebsiteName'),'-Dev'  )]": "Resource"
+          "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('WebsiteName'),'/slots/Dev'  )]": "Resource"
         }
       }
     },
@@ -307,7 +307,7 @@
       "apiVersion": "2014-04-01",
       "tags": {
         "displayName": "insightsComponents",
-        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('WebsiteName'),'-Staging'  )]": "Resource"
+        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('WebsiteName'),'/slots/Staging'  )]": "Resource"
       },
       "properties": {
         "ApplicationId": "[concat(parameters('WebsiteName'), '-StagingInsights')]"       
@@ -320,7 +320,7 @@
       "apiVersion": "2014-04-01",
       "tags": {
         "displayName": "insightsComponents",
-        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('WebsiteName'),'-Test'  )]": "Resource"
+        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('WebsiteName'),'/slots/Test'  )]": "Resource"
       },
       "properties": {
         "ApplicationId": "[concat(parameters('WebsiteName'), '-TestInsights')]"
@@ -487,10 +487,10 @@
         "[resourceId('Microsoft.Sql/servers', variables('PartsUnlimitedServerNameDev'))]",
         "[resourceId('Microsoft.Sql/servers', variables('PartsUnlimitedServerNameStage'))]",
         "[resourceId('Microsoft.Sql/servers', variables('PartsUnlimitedServerNameTest'))]",
-        "[resourceId('Microsoft.Insights/components', concat(parameters('WebsiteName'), '-Insights'))]",
-        "[resourceId('Microsoft.Insights/components', concat(parameters('WebSiteName'), '-DevInsights'))]",
-        "[resourceId('Microsoft.Insights/components', concat(parameters('WebsiteName'), '-TestInsights'))]",
-        "[resourceId('Microsoft.Insights/components', concat(parameters('WebSiteName'), '-StagingInsights'))]"
+        //"[resourceId('Microsoft.Insights/components', concat(parameters('WebsiteName'), '-Insights'))]",
+        //"[resourceId('Microsoft.Insights/components', concat(parameters('WebSiteName'), '-DevInsights'))]",
+        //"[resourceId('Microsoft.Insights/components', concat(parameters('WebsiteName'), '-TestInsights'))]",
+        //"[resourceId('Microsoft.Insights/components', concat(parameters('WebSiteName'), '-StagingInsights'))]"
       ],
       "location": "[resourceGroup().location]",
       "apiVersion": "2014-06-01",
@@ -522,7 +522,8 @@
           "type": "config",
           "apiVersion": "2014-11-01",
           "dependsOn": [
-            "[resourceId('Microsoft.Web/sites', parameters('WebSiteName'))]"
+            "[resourceId('Microsoft.Web/sites', parameters('WebSiteName'))]",
+            "[concat(parameters('WebsiteName'), '-Insights')]"
           ],
           "properties": {
             "APPINSIGHTS_INSTRUMENTATIONKEY": "[reference(concat('Microsoft.Insights/components/', parameters('WebsiteName'), '-Insights')).InstrumentationKey]",
@@ -535,7 +536,8 @@
           "type": "config",
           "apiVersion": "2014-11-01",
           "dependsOn": [
-            "[resourceId('Microsoft.Web/sites', parameters('WebSiteName'))]"
+            "[resourceId('Microsoft.Web/sites', parameters('WebSiteName'))]",
+        
           ],
           "properties": {
             "connectionStringNames": [
@@ -562,7 +564,7 @@
               "type": "config",
               "apiVersion": "2014-11-01",
               "dependsOn": [
-                "[resourceId('Microsoft.Web/sites/slots', parameters('WebSiteName'), 'Dev')]"
+                "[resourceId('Microsoft.Web/sites/', parameters('WebSiteName'), '/slots/Dev')]"
               ],
               "properties": {
                 "DefaultConnectionString": {
@@ -576,7 +578,8 @@
               "type": "config",
               "apiVersion": "2014-11-01",
               "dependsOn": [
-                "[resourceId('Microsoft.Web/sites/slots', parameters('WebSiteName'), 'Dev')]"
+                "[resourceId('Microsoft.Web/sites/', parameters('WebSiteName'), '/slots/Dev')]",
+                "[concat(parameters('WebsiteName'), '-DevInsights')]"
               ],
               "properties": {
                 "APPINSIGHTS_INSTRUMENTATIONKEY": "[reference(concat('Microsoft.Insights/components/', parameters('WebsiteName'), '-DevInsights')).InstrumentationKey]",
@@ -593,7 +596,8 @@
           "location": "[resourceGroup().location]",
           "apiVersion": "2014-11-01",
           "dependsOn": [
-            "[resourceId('Microsoft.Web/sites', parameters('WebSiteName'))]"
+            "[resourceId('Microsoft.Web/sites', parameters('WebSiteName'))]",
+            
           ],
           "properties": {},
           "resources": [
@@ -602,7 +606,7 @@
               "type": "config",
               "apiVersion": "2014-11-01",
               "dependsOn": [
-                "[resourceId('Microsoft.Web/sites/slots', parameters('WebSiteName'), 'Staging')]"
+                "[resourceId('Microsoft.Web/sites/', parameters('WebSiteName'), '/slots/Staging')]"
               ],
               "properties": {
                 "DefaultConnectionString": {
@@ -616,7 +620,8 @@
               "type": "config",
               "apiVersion": "2014-11-01",
               "dependsOn": [
-                "[resourceId('Microsoft.Web/sites/slots', parameters('WebSiteName'), 'Staging')]"
+                "[resourceId('Microsoft.Web/sites/', parameters('WebSiteName'), '/slots/Staging')]",
+                "[concat(parameters('WebsiteName'), '-StagingInsights')]"
               ],
               "properties": {
                 "APPINSIGHTS_INSTRUMENTATIONKEY": "[reference(concat('Microsoft.Insights/components/', parameters('WebsiteName'), '-StagingInsights')).InstrumentationKey]",
@@ -644,7 +649,7 @@
               "type": "config",
               "apiVersion": "2014-11-01",
               "dependsOn": [
-                "[resourceId('Microsoft.Web/sites/slots', parameters('WebSiteName'), 'Test')]"
+                "[resourceId('Microsoft.Web/sites/', parameters('WebSiteName'), '/slots/Test')]"
               ],
               "properties": {
                 "DefaultConnectionString": {
@@ -658,7 +663,8 @@
               "type": "config",
               "apiVersion": "2014-11-01",
               "dependsOn": [
-                "[resourceId('Microsoft.Web/sites/slots', parameters('WebSiteName'), 'Test')]"
+                "[resourceId('Microsoft.Web/sites/', parameters('WebSiteName'), '/slots/Test')]",
+                "[concat(parameters('WebsiteName'), '-TestInsights')]"
               ],
               "properties": {
                 "APPINSIGHTS_INSTRUMENTATIONKEY": "[reference(concat('Microsoft.Insights/components/', parameters('WebsiteName'), '-TestInsights')).InstrumentationKey]",
