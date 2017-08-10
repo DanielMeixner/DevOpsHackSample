@@ -296,7 +296,7 @@
       "properties": {
         "ApplicationId": "[concat(parameters('WebsiteName'), '-DevInsights')]",
         "tags": {
-          "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('WebsiteName'),'-Dev'  )]": "Resource"
+          "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('WebsiteName'),'/slots/Dev'  )]": "Resource"
         }
       }
     },
@@ -307,7 +307,7 @@
       "apiVersion": "2014-04-01",
       "tags": {
         "displayName": "insightsComponents",
-        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('WebsiteName'),'-Staging'  )]": "Resource"
+        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('WebsiteName'),'/slots/Staging'  )]": "Resource"
       },
       "properties": {
         "ApplicationId": "[concat(parameters('WebsiteName'), '-StagingInsights')]"       
@@ -320,7 +320,8 @@
       "apiVersion": "2014-04-01",
       "tags": {
         "displayName": "insightsComponents",
-        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('WebsiteName'),'-Test'  )]": "Resource"
+        
+        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('WebsiteName'),'/slots/Test'  )]": "Resource"
       },
       "properties": {
         "ApplicationId": "[concat(parameters('WebsiteName'), '-TestInsights')]"
