@@ -296,7 +296,7 @@
       "properties": {
         "ApplicationId": "[concat(parameters('WebsiteName'), '-DevInsights')]",
         "tags": {
-          "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('WebsiteName'), '-Dev' )]": "Resource"
+          "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('WebsiteName'),'-Dev'  )]": "Resource"
         }
       }
     },
@@ -525,7 +525,6 @@
             "Keys:ApplicationInsights:InstrumentationKey": "[reference(concat('Microsoft.Insights/components/', parameters('WebsiteName'), '-Insights')).InstrumentationKey]",
             "SlotName": "NoSlot-Default"
           }
-
         },
         {
           "name": "slotconfignames",
@@ -579,11 +578,10 @@
                 "APPINSIGHTS_INSTRUMENTATIONKEY": "[reference(concat('Microsoft.Insights/components/', parameters('WebsiteName'), '-DevInsights')).InstrumentationKey]",
                 "Keys:ApplicationInsights:InstrumentationKey": "[reference(concat('Microsoft.Insights/components/', parameters('WebsiteName'), '-DevInsights')).InstrumentationKey]",
                 "SlotName": "Dev"
-                
-
-              },              
-              ]
-            },
+              }
+            }
+          ]
+        },
 
         {
           "name": "Staging",
