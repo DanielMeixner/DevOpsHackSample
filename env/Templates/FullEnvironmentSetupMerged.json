@@ -82,7 +82,7 @@
   },
   "variables": {
     "PartsUnlimitedServerName": "[toLower(parameters('PartsUnlimitedServerName'))]",
-    "PartsUnlimitedServerNameDev": "[concat(variables('PartsUnlimitedServerName'), 'dev')]"
+    "PartsUnlimitedServerNameDev": "[concat(variables('PartsUnlimitedServerName'), 'dev')]",
     "PartsUnlimitedServerNameStage": "[concat(variables('PartsUnlimitedServerName'), 'stage')]"
   },
   "resources": [
