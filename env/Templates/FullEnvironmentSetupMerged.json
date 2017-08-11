@@ -527,8 +527,7 @@
           ],
           "properties": {
             "APPINSIGHTS_INSTRUMENTATIONKEY": "[reference(concat('Microsoft.Insights/components/', parameters('WebsiteName'), '-Insights')).InstrumentationKey]",
-            "Keys:ApplicationInsights:InstrumentationKey": "[reference(concat('Microsoft.Insights/components/', parameters('WebsiteName'), '-Insights')).InstrumentationKey]",
-            "SlotName": "NoSlot-Default"
+            "Keys:ApplicationInsights:InstrumentationKey": "[reference(concat('Microsoft.Insights/components/', parameters('WebsiteName'), '-Insights')).InstrumentationKey]"            
           }
         },
         {
@@ -581,8 +580,7 @@
               ],
               "properties": {
                 "APPINSIGHTS_INSTRUMENTATIONKEY": "[reference(concat('Microsoft.Insights/components/', parameters('WebsiteName'), '-DevInsights')).InstrumentationKey]",
-                "Keys:ApplicationInsights:InstrumentationKey": "[reference(concat('Microsoft.Insights/components/', parameters('WebsiteName'), '-DevInsights')).InstrumentationKey]",
-                "SlotName": "Dev"
+                "Keys:ApplicationInsights:InstrumentationKey": "[reference(concat('Microsoft.Insights/components/', parameters('WebsiteName'), '-DevInsights')).InstrumentationKey]"          
               }
             }
           ]
@@ -621,9 +619,7 @@
               ],
               "properties": {
                 "APPINSIGHTS_INSTRUMENTATIONKEY": "[reference(concat('Microsoft.Insights/components/', parameters('WebsiteName'), '-StagingInsights')).InstrumentationKey]",
-                "Keys:ApplicationInsights:InstrumentationKey": "[reference(concat('Microsoft.Insights/components/', parameters('WebsiteName'), '-StagingInsights')).InstrumentationKey]",
-                "SlotName": "Staging"                
-
+                "Keys:ApplicationInsights:InstrumentationKey": "[reference(concat('Microsoft.Insights/components/', parameters('WebsiteName'), '-StagingInsights')).InstrumentationKey]"               
               }
             }
           ]
@@ -663,24 +659,12 @@
               ],
               "properties": {
                 "APPINSIGHTS_INSTRUMENTATIONKEY": "[reference(concat('Microsoft.Insights/components/', parameters('WebsiteName'), '-TestInsights')).InstrumentationKey]",
-                "Keys:ApplicationInsights:InstrumentationKey": "[reference(concat('Microsoft.Insights/components/', parameters('WebsiteName'), '-TestInsights')).InstrumentationKey]",
-                "SlotName": "Test"
-              }
+                "Keys:ApplicationInsights:InstrumentationKey": "[reference(concat('Microsoft.Insights/components/', parameters('WebsiteName'), '-TestInsights')).InstrumentationKey]"                            }
             }
           ]
         }
-
-
-
-
-
-
       ]
     },
-
-
-
-
     {
       "name": "[concat('ServerErrors ', parameters('WebsiteName'))]",
       "type": "Microsoft.Insights/alertrules",
