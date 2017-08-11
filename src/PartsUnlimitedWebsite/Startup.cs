@@ -90,6 +90,8 @@ namespace PartsUnlimited
                 return new ConfigurationApplicationInsightsSettings(Configuration.GetSection(ConfigurationPath.Combine("Keys", "ApplicationInsights")));
             });
 
+            
+
             // Associate IPartsUnlimitedContext and PartsUnlimitedContext with context
             services.AddTransient<IPartsUnlimitedContext>(x => new PartsUnlimitedContext(sqlConnectionString));
             services.AddTransient(x => new PartsUnlimitedContext(sqlConnectionString));

@@ -3,8 +3,10 @@
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Configuration;
 using PartsUnlimited.Models;
 using PartsUnlimited.ViewModels;
+using PartsUnlimited.WebsiteConfiguration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +19,15 @@ namespace PartsUnlimited.Controllers
         private readonly IMemoryCache _cache;
         public int roco_count = 1000;
 
-        public HomeController(IPartsUnlimitedContext context, IMemoryCache memoryCache)
+        public string MyValue { get; set; }
+        
+
+        public HomeController(IPartsUnlimitedContext context, IMemoryCache memoryCache, IApplicationInsightsSettings config)
         {
+
+            MyValue = config.InstrumentationKey;
+
+
             _db = context;
             _cache = memoryCache;
         }
@@ -44,12 +53,17 @@ namespace PartsUnlimited.Controllers
                 _cache.Set("newarrivals", newProducts, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(10)).SetPriority(CacheItemPriority.High));
             }
 
+            
+
             var viewModel = new HomeViewModel
             {
                 NewProducts = newProducts,
                 TopSellingProducts = topSellingProducts,
-                CommunityPosts = GetCommunityPosts()
+                CommunityPosts = GetCommunityPosts(),
+                MyAIKey = MyValue
             };
+
+            
 
             return View(viewModel);
         }
