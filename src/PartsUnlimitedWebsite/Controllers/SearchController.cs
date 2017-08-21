@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Mvc;
 using PartsUnlimited.Search;
 using PartsUnlimited.Telemetry;
@@ -12,12 +13,13 @@ namespace PartsUnlimited.Controllers
     public class SearchController : Controller
     {
         private readonly IProductSearch _search;
-        private ITelemetryProvider _telemetry;
+        private TelemetryClient appInsights = new TelemetryClient();
 
-        public SearchController(IProductSearch search, ITelemetryProvider telemetryProvider)
+
+        public SearchController(IProductSearch search)
         {
             _search = search;
-            _telemetry = telemetryProvider;
+            
         }
 
         public async Task<IActionResult> Index(string q)
@@ -27,7 +29,7 @@ namespace PartsUnlimited.Controllers
                 return View(null);
             }
 
-
+            appInsights.TrackTrace("Someone calling search...", null);
             // Telemetry Exercise:  start timer here
             var startTime = System.DateTime.Now;
 
@@ -40,7 +42,7 @@ namespace PartsUnlimited.Controllers
             };
 
             // Telemetry Exercise: collect telemetry data
-            _telemetry.TrackEvent("Search/Server/Run", null, measurements);
+            appInsights.TrackEvent("Search/Server/Run", null, measurements);
 
             return View(result);
         }

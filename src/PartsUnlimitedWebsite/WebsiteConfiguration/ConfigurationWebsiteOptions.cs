@@ -2,14 +2,14 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using Microsoft.Extensions.Configuration;
-using PartsUnlimited.Telemetry;
+
 using System;
 
 namespace PartsUnlimited.WebsiteConfiguration
 {
     public class ConfigurationWebsiteOptions : IWebsiteOptions
     {
-        public ConfigurationWebsiteOptions(IConfiguration config, ITelemetryProvider log)
+        public ConfigurationWebsiteOptions(IConfiguration config)
         {
             try
             {
@@ -17,7 +17,7 @@ namespace PartsUnlimited.WebsiteConfiguration
             }
             catch (InvalidCastException e)
             {
-                log.TrackException(e);
+                
             }
         }
 

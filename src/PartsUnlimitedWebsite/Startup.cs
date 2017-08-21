@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -14,9 +15,9 @@ using PartsUnlimited.Queries;
 using PartsUnlimited.Recommendations;
 using PartsUnlimited.Search;
 using PartsUnlimited.Security;
-using PartsUnlimited.Telemetry;
+
 using PartsUnlimited.WebsiteConfiguration;
-using PartsUnlimitedWebsite.Telemetry;
+
 using System;
 
 namespace PartsUnlimited
@@ -74,16 +75,22 @@ namespace PartsUnlimited
             services.AddScoped<IOrdersQuery, OrdersQuery>();
             services.AddScoped<IRaincheckQuery, RaincheckQuery>();
 
-            services.AddSingleton<ITelemetryProvider, ApplicationInsightsTelemetryProvider>();
+
+            services.AddApplicationInsightsTelemetry(Configuration);
+
+            
+
+            
+
             services.AddScoped<IProductSearch, StringContainsProductSearch>();
 
             SetupRecommendationService(services);
 
             services.AddScoped<IWebsiteOptions>(p =>
             {
-                var telemetry = p.GetRequiredService<ITelemetryProvider>();
+                
 
-                return new ConfigurationWebsiteOptions(Configuration.GetSection("WebsiteOptions"), telemetry);
+                return new ConfigurationWebsiteOptions(Configuration.GetSection("WebsiteOptions"));
             });
 
             services.AddScoped<IApplicationInsightsSettings>(p =>
@@ -91,7 +98,6 @@ namespace PartsUnlimited
                 return new ConfigurationApplicationInsightsSettings(Configuration.GetSection(ConfigurationPath.Combine("Keys", "ApplicationInsights")));
             });
 
-            
 
             // Associate IPartsUnlimitedContext and PartsUnlimitedContext with context
             services.AddTransient<IPartsUnlimitedContext>(x => new PartsUnlimitedContext(sqlConnectionString));

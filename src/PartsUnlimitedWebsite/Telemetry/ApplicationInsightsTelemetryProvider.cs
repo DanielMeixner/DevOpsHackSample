@@ -1,6 +1,7 @@
 ﻿using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
 using PartsUnlimited.Telemetry;
+using PartsUnlimited.WebsiteConfiguration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace PartsUnlimitedWebsite.Telemetry
         
         private readonly TelemetryClient _telemetry;
 
-        public ApplicationInsightsTelemetryProvider()
+        public ApplicationInsightsTelemetryProvider(IApplicationInsightsSettings aiSettings)
         {
             TelemetryConfiguration telemetryConfiguration = new TelemetryConfiguration
             {
@@ -21,6 +22,9 @@ namespace PartsUnlimitedWebsite.Telemetry
             };
 
             _telemetry = new TelemetryClient(telemetryConfiguration);
+         //   _telemetry.InstrumentationKey = Configuration.GetSection(ConfigurationPath.Combine("Keys", "ApplicationInsights"));
+
+
         }
        
 

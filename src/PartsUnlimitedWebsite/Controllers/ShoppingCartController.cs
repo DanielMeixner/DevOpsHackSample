@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,14 +18,14 @@ namespace PartsUnlimited.Controllers
 {
     public class ShoppingCartController : Controller
     {
-        private readonly IPartsUnlimitedContext _db;
-        private readonly ITelemetryProvider _telemetry;
+        private readonly IPartsUnlimitedContext _db;        
         private readonly IAntiforgery _antiforgery;
+        private TelemetryClient appInsights = new TelemetryClient();
 
-        public ShoppingCartController(IPartsUnlimitedContext context, ITelemetryProvider telemetryProvider, IAntiforgery antiforgery)
+        public ShoppingCartController(IPartsUnlimitedContext context, IAntiforgery antiforgery)
         {
             _db = context;
-            _telemetry = telemetryProvider;
+            
             _antiforgery = antiforgery;
         }
 
@@ -60,7 +61,7 @@ namespace PartsUnlimited.Controllers
             };
 
             // Track cart review event with measurements
-            _telemetry.TrackTrace("Cart/Server/Index");
+            appInsights.TrackTrace("Cart/Server/Index");
 
             // Return the view
             return View(viewModel);
@@ -90,7 +91,7 @@ namespace PartsUnlimited.Controllers
             {
                 {"ElapsedMilliseconds", System.DateTime.Now.Subtract(startTime).TotalMilliseconds }
             };
-            _telemetry.TrackEvent("Cart/Server/Add", null, measurements);
+            appInsights.TrackEvent("Cart/Server/Add", null, measurements);
 
             // Go back to the main store page for more shopping
             return RedirectToAction("Index");

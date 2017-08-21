@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PartsUnlimited.Queries;
@@ -18,12 +19,13 @@ namespace PartsUnlimited.Controllers
     public class OrdersController : Controller
     {
         private readonly IOrdersQuery _ordersQuery;
-        private readonly ITelemetryProvider _telemetry;
+       private TelemetryClient appInsights = new TelemetryClient();
+   
 
-        public OrdersController(IOrdersQuery ordersQuery, ITelemetryProvider telemetryProvider)
+        public OrdersController(IOrdersQuery ordersQuery)
         {
             _ordersQuery = ordersQuery;
-            _telemetry = telemetryProvider;
+            
         }
 
         public async Task<IActionResult> Index(DateTime? start, DateTime? end, string invalidOrderSearch)
@@ -37,7 +39,9 @@ namespace PartsUnlimited.Controllers
         {
             if (id == null)
             {
-                _telemetry.TrackTrace("Order/Server/NullId");
+
+
+                appInsights.TrackTrace("Order/Server/NullId");
                 return RedirectToAction("Index", new { invalidOrderSearch = Request.Query["id"] });
             }
           
@@ -47,7 +51,7 @@ namespace PartsUnlimited.Controllers
             // If the username isn't the same as the logged in user, return as if the order does not exist
             if (order == null || !String.Equals(order.Username, username, StringComparison.Ordinal))
             {
-                _telemetry.TrackTrace("Order/Server/UsernameMismatch");
+                appInsights.TrackTrace("Order/Server/UsernameMismatch");
                 return RedirectToAction("Index", new { invalidOrderSearch = id.ToString() });
             }
 
@@ -59,7 +63,7 @@ namespace PartsUnlimited.Controllers
                 };
             if (order.OrderDetails == null)
             {
-                _telemetry.TrackEvent("Order/Server/NullDetails", eventProperties, null);
+                appInsights.TrackEvent("Order/Server/NullDetails", eventProperties, null);
             }
             else
             {
@@ -67,7 +71,7 @@ namespace PartsUnlimited.Controllers
                 {
                     {"LineItemCount", order.OrderDetails.Count }
                 };
-                _telemetry.TrackEvent("Order/Server/Details", eventProperties, eventMeasurements);
+                appInsights.TrackEvent("Order/Server/Details", eventProperties, eventMeasurements);
             }
 
             var itemsCount = order.OrderDetails.Sum(x => x.Quantity);
