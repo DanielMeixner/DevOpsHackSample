@@ -1,4 +1,5 @@
-﻿@using PartsUnlimited
+﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+@using PartsUnlimited
 @using Microsoft.DotNet.InternalAbstractions
 
 <!DOCTYPE html>
@@ -13,6 +14,7 @@
     @Html.Styles("site")
     @Html.Script("modernizr")
     @Html.Script("jquery")
+    @Html.Raw(JavaScriptSnippet.FullScript)
 </head>
 <body>
     <header>

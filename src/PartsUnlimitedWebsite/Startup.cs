@@ -32,9 +32,13 @@ namespace PartsUnlimited
             //then the later source will win. By this way a Local config can be overridden by a different setting while deployed remotely.
             var builder = new ConfigurationBuilder()
                 .AddJsonFile("config.json")
+                .AddJsonFile("appsettings.json")
                 .AddEnvironmentVariables(); //All environment variables in the process's context flow in as configuration values.
 
             Configuration = builder.Build();
+
+            // dev mode on = true
+            builder.AddApplicationInsightsSettings(true);
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -76,7 +80,7 @@ namespace PartsUnlimited
             services.AddScoped<IRaincheckQuery, RaincheckQuery>();
 
 
-            services.AddApplicationInsightsTelemetry(Configuration);
+           
 
             
 

@@ -8,6 +8,8 @@
     <PackageId>PartsUnlimitedWebsite</PackageId>
     <RuntimeFrameworkVersion>1.0.4</RuntimeFrameworkVersion>
     <PackageTargetFallback>$(PackageTargetFallback);dotnet5.6;dnxcore50;portable-net45+win8</PackageTargetFallback>
+    <ApplicationInsightsResourceId>/subscriptions/81c5c77b-31e5-47ef-9d27-fc34dd9e7f09/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/PartsUnlimitedWebsite</ApplicationInsightsResourceId>
+    <ApplicationInsightsAnnotationResourceId>/subscriptions/81c5c77b-31e5-47ef-9d27-fc34dd9e7f09/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/PartsUnlimitedWebsite</ApplicationInsightsAnnotationResourceId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="1.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="1.0.2" />
@@ -44,7 +47,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.0.2" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.0.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.0.1" />
-    <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.0.0" />
+    <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="1.0.0">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
@@ -52,7 +55,6 @@
     <PackageReference Include="Microsoft.Extensions.WebEncoders.Core" Version="1.0.0-rc1-final" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OAuth" Version="1.0.2" />
     <PackageReference Include="Microsoft.Extensions.DiagnosticAdapter" Version="1.0.2" />
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="1.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="1.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="1.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="1.0.3" />
@@ -76,9 +78,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
 </Project>

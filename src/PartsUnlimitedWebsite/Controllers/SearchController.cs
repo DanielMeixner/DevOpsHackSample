@@ -14,6 +14,7 @@ namespace PartsUnlimited.Controllers
     {
         private readonly IProductSearch _search;
         private TelemetryClient appInsights = new TelemetryClient();
+        
 
 
         public SearchController(IProductSearch search)
