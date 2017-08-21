@@ -16,6 +16,7 @@ using PartsUnlimited.Search;
 using PartsUnlimited.Security;
 using PartsUnlimited.Telemetry;
 using PartsUnlimited.WebsiteConfiguration;
+using PartsUnlimitedWebsite.Telemetry;
 using System;
 
 namespace PartsUnlimited
@@ -73,7 +74,7 @@ namespace PartsUnlimited
             services.AddScoped<IOrdersQuery, OrdersQuery>();
             services.AddScoped<IRaincheckQuery, RaincheckQuery>();
 
-            services.AddSingleton<ITelemetryProvider, EmptyTelemetryProvider>();
+            services.AddSingleton<ITelemetryProvider, ApplicationInsightsTelemetryProvider>();
             services.AddScoped<IProductSearch, StringContainsProductSearch>();
 
             SetupRecommendationService(services);
