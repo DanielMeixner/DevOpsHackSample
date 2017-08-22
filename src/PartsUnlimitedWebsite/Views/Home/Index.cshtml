@@ -10,6 +10,9 @@
 @section scripts {
     <script>
         $('.carousel').carousel()
+        window.appInsights.startTrackEvent('Visit.Homepage');
+        var body = document.getElementsByTagName("body")[0];
+        body.addEventListener("unload", () => { window.appInsights.stopTrackEvent('Visit.Homepage'); })
     </script>
 }
 
