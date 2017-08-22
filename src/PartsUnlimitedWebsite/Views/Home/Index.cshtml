@@ -10,12 +10,15 @@
 @section scripts {
     <script>
         $('.carousel').carousel()
-        $('.left.carousel-control').click(function () {
-            window.appInsights.TrackEvent("Client/RotateLeft");
+        
+        $('.left.carousel-control').click(function () {          
+            window.appInsights.trackEvent('Rotate.LeftEvent');
         });
-        $('.right.carousel-control').click(function () {
-            window.appInsights.TrackEvent("Client/RotateRight");
+        $('.right.carousel-control').click(function () {            
+            window.appInsights.trackEvent('Rotate.RightEvent');
         });
+        
+
     </script>
 }
 
