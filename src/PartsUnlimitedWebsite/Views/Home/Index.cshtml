@@ -10,9 +10,12 @@
 @section scripts {
     <script>
         $('.carousel').carousel()
-        window.appInsights.startTrackEvent('Visit.Homepage');
-        var body = document.getElementsByTagName("body")[0];
-        body.addEventListener("unload", () => { window.appInsights.stopTrackEvent('Visit.Homepage'); })
+        $('.left.carousel-control').click(function () {
+            window.appInsights.TrackEvent("Client/RotateLeft");
+        });
+        $('.right.carousel-control').click(function () {
+            window.appInsights.TrackEvent("Client/RotateRight");
+        });
     </script>
 }
 
@@ -56,7 +59,7 @@
                 <p>Old<span> or </span>new</p>
                 <p>Find the parts for you</p>
                 <div class="carousel-caption hidden-xs hidden-sm">
-                    <a href="@Url.Action("Browse", "Store", new { categoryId = 3 })" class="carousel-link">Shop Now</a>
+                    <a href="@Url.Action("Browse", "Store", new { categoryId = 3 })" click="function(){alert();}" class="carousel-link">Shop Now</a>
                 </div>
             </div>
         </div>
@@ -123,3 +126,5 @@
         @await Html.PartialAsync("_CommunityList", Model.CommunityPosts)
     </section>
 </div>
+
+
