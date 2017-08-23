@@ -4,6 +4,6 @@ services:
   ci-build:
     image: microsoft/aspnetcore-build
     volumes:
-      - .:/src
-    working_dir: /src
+      - .:/
+    working_dir: /
     command: /bin/bash -c "dotnet restore ./PartsUnlimited.sln && dotnet publish ./PartsUnlimited.sln"
