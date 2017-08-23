@@ -4,5 +4,3 @@ EXPOSE 80
 COPY bin/Debug/netcoreapp1.0/publish /app
 
 ENTRYPOINT ["dotnet", "PartsUnlimitedWebsite.dll"]
-
-
