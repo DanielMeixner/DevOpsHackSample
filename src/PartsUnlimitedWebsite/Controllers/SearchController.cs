@@ -1,7 +1,7 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
+// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Microsoft.ApplicationInsights;
+
 using Microsoft.AspNetCore.Mvc;
 using PartsUnlimited.Search;
 using PartsUnlimited.Telemetry;
@@ -15,7 +15,7 @@ namespace PartsUnlimited.Controllers
         private readonly IProductSearch _search;
 
         // Telemetry Exercise: create Telemetry Client here        
-         private TelemetryClient appInsights = new TelemetryClient();
+
 
 
 
@@ -32,7 +32,7 @@ namespace PartsUnlimited.Controllers
                 return View(null);
             }
 
-            appInsights.TrackTrace("Someone calling search...", null);
+            
             // Telemetry Exercise:  start timer here
             
             var result = await _search.Search(q);
